@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SemPastries</string>
+
+    <string name="sign_up">Sign Up</string>
+    <string name="fill_details">Fill in details below</string>
+    <string name="phone">Phone Number</string>
+    <string name="_234">+234</string>
+    <string name="_90">9012345678</string>
+    <string name="surname">Surname</string>
+    <string name="surnameHint">Sems</string>
+    <string name="firstname">Firstname</string>
+    <string name="firstnameHint">Pastry</string>
+    <string name="password">Password</string>
+    <string name="country">Country</string>
+    <string name="countryHelper">Naija</string>
+    <string name="state">State</string>
+    <string name="stateHelper">Oyo</string>
+    <string name="passwordHint">*****************</string>
+</resources>
