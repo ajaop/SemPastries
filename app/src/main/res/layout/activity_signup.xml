@@ -6,246 +6,260 @@
     android:layout_height="match_parent"
     tools:context=".SignupActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/sign_up"
-            android:textColor="@color/dark_red_80"
-            android:textStyle="bold"
-            android:textAppearance="@style/onbHeader"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/dark_gray"
-            android:text="@string/fill_details"
-            android:textAppearance="@style/onbSubheader"/>
-
-        <TextView
-            android:textColor="@color/black"
-            android:layout_marginTop="30dp"
-            android:text="@string/phone"
-            android:textAppearance="@style/subtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/sign_up"
+                android:textColor="@color/dark_red_80"
+                android:textStyle="bold"
+                android:textAppearance="@style/onbHeader"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/dark_gray"
+                android:text="@string/fill_details"
+                android:textAppearance="@style/onbSubheader"/>
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginTop="30dp"
+                android:text="@string/phone"
+                android:textAppearance="@style/subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputDropDown"
-                android:layout_width="110dp"
-                android:layout_height="50dp"
-                android:layout_marginBottom="5dp"
-                app:hintEnabled="false">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputDropDown"
+                    android:layout_width="110dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="5dp"
+                    app:hintEnabled="false">
 
-                <AutoCompleteTextView
-                    android:id="@+id/txtNum"
+                    <AutoCompleteTextView
+                        android:id="@+id/txtNum"
+                        android:padding="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/_234"
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textAppearance="@style/onbSubheader"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/_234"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:textAppearance="@style/onbSubheader"/>
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="5dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtPhNumber"
+                        android:padding="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:textColor="@color/black"
+                        android:hint="@string/_90"
+                        android:autofillHints="none"
+                        android:maxLength="12"
+                        android:textAppearance="@style/onbSubheader"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
 
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:text="@string/surname"
+                android:textAppearance="@style/subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="5dp">
+                android:layout_height="55dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtPhNumber"
+                    android:id="@+id/txtSurname"
+                    android:padding="0dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="phone"
+                    android:inputType="textPersonName"
                     android:textColor="@color/black"
-                    android:hint="@string/_90"
                     android:autofillHints="none"
-                    android:maxLength="12"
-                    android:textAppearance="@style/onbSubheader"/>
+                    android:textAppearance="@style/onbSubheader"
+                    android:hint="@string/surnameHint"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:text="@string/firstname"
+                android:textAppearance="@style/subtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFirstname"
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black"
+                    android:autofillHints="none"
+                    android:textAppearance="@style/onbSubheader"
+                    android:hint="@string/firstnameHint"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/countryTextView"
+                        android:textColor="@color/black"
+                        android:text="@string/country"
+                        android:textAppearance="@style/subtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:id="@+id/countryRel"
+                        android:layout_below="@+id/countryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:background="@drawable/text_bg2">
+
+                        <TextView
+                            android:id="@+id/txtCountry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toStartOf="@+id/in1"
+                            android:hint="@string/countryHelper"
+                            android:textAppearance="@style/onbSubheader"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/in1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/app_name"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_down" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/stateTextView"
+                        android:textColor="@color/black"
+                        android:text="@string/state"
+                        android:textAppearance="@style/subtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:id="@+id/stateRel"
+                        android:layout_below="@+id/stateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="55dp"
+                        android:background="@drawable/text_bg2">
+
+                        <TextView
+                            android:id="@+id/txtState"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toStartOf="@+id/in2"
+                            android:hint="@string/stateHelper"
+                            android:textAppearance="@style/onbSubheader"
+                            android:textColor="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/in2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:layout_centerVertical="true"
+                            android:contentDescription="@string/app_name"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_down" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
-
-
-        <TextView
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:text="@string/surname"
-            android:textAppearance="@style/subtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtSurname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textColor="@color/black"
-                android:autofillHints="none"
-                android:textAppearance="@style/onbSubheader"
-                android:hint="@string/surnameHint"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <TextView
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            android:text="@string/firstname"
-            android:textAppearance="@style/subtext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtFirstname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textColor="@color/black"
-                android:autofillHints="none"
-                android:textAppearance="@style/onbSubheader"
-                android:hint="@string/firstnameHint"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/countryTextView"
-                android:textColor="@color/black"
-                android:text="@string/country"
-                android:textAppearance="@style/subtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <RelativeLayout
-                android:id="@+id/countryRel"
-                android:layout_below="@+id/countryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@drawable/text_bg2">
-
-                <TextView
-                    android:id="@+id/txtCountry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/in1"
-                    android:hint="@string/countryHelper"
-                    android:textAppearance="@style/onbSubheader"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/in1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/app_name"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_down" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/stateTextView"
-                android:textColor="@color/black"
-                android:text="@string/state"
-                android:textAppearance="@style/subtext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <RelativeLayout
-                android:id="@+id/stateRel"
-                android:layout_below="@+id/stateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:background="@drawable/text_bg2">
-
-                <TextView
-                    android:id="@+id/txtState"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toStartOf="@+id/in2"
-                    android:hint="@string/stateHelper"
-                    android:textAppearance="@style/onbSubheader"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/in2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/app_name"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_down" />
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-    </LinearLayout>
 
         <Button
             android:layout_marginTop="50dp"
@@ -259,5 +273,7 @@
             style="@style/onbBtn"/>
 
     </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
