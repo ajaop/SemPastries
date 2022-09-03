@@ -16,6 +16,9 @@
     <string name="state">State</string>
     <string name="stateHelper">Oyo</string>
     <string name="passwordHint">*****************</string>
+    <string name="select_country">Select Country</string>
+    <string name="unknown_err">Unknown Error</string>
+    <string name="network_err">Network Error</string>
 
 
 
