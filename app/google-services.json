@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "460785689310",
+    "project_id": "semieats",
+    "storage_bucket": "semieats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460785689310:android:f3efe8d48688dc8c48584f",
+        "android_client_info": {
+          "package_name": "com.example.sempastries"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460785689310-sv0h7p6pkum7dubqo6nif8q4r73qoh14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sempastries",
+            "certificate_hash": "5b2e9cdbbbb6b714b937d856cb63d4f197f35ee1"
+          }
+        },
+        {
+          "client_id": "460785689310-8147l1uiebrctq2gigg4a4mv99a926mk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdvErNs2lRyv5J0El9EWOicR8P8w42IdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460785689310-8147l1uiebrctq2gigg4a4mv99a926mk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

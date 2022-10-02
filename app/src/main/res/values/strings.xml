@@ -5,21 +5,39 @@
     <string name="fill_details">Fill in details below</string>
     <string name="phone">Phone Number</string>
     <string name="_234">+234</string>
-    <string name="_90">90 123 45678</string>
+    <string name="_90">9012345678</string>
     <string name="surname">Surname</string>
     <string name="surnameHint">Sems</string>
     <string name="firstname">Firstname</string>
     <string name="firstnameHint">Pastry</string>
+    <string name="gender">Gender</string>
+    <string name="genderHint">Male</string>
     <string name="password">Password</string>
     <string name="country">Country</string>
     <string name="countryHelper">Naija</string>
     <string name="state">State</string>
     <string name="stateHelper">Oyo</string>
-    <string name="passwordHint">*****************</string>
+    <string name="city">City</string>
+    <string name="cityHelper">Ibadan</string>
+    <string name="email">Email</string>
+    <string name="emailHint">sempastries@gmail.com</string>
+    <string name="passwordHint">********</string>
     <string name="select_country">Select Country</string>
+    <string name="select_state">Select State</string>
+    <string name="select_city">Select City</string>
+    <string name="select_gender">Select Gender</string>
     <string name="unknown_err">Unknown Error</string>
     <string name="network_err">Network Error</string>
-
+    <string name="completeReg">Complete Registration</string>
+    <string name="sign_in">Sign In</string>
+    <string name="dont_have_acc">Don\'t have an account ?</string>
+    <string name="already_have_acc">Already have an account ?</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="reset_assword">Reset Password</string>
+    <string name="input_forgot_email">Input email you registered with</string>
+    <string name="sure_to_exit">Are you sure you want to exit ?</string>
+    <string name="no">No</string>
+    <string name="yes_exit">Yes Exit</string>
 
 
     <string-array name="tel_codes">

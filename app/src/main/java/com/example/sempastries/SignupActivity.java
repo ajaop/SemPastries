@@ -1,219 +1,208 @@
 package com.example.sempastries;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
+import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.github.ybq.android.spinkit.style.PulseRing;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private RequestQueue requestQueue;
-    private AutoCompleteTextView txtNum;
-    private EditText txtPhNumber;
-    private TextView txtCountry;
-    private ListView listView;
+    private TextInputLayout emailInputLayout, passwordInputLayout;
+    private EditText txtEmail, txtPassword;
     private ProgressBar progressBar;
-    private BottomSheetDialog bsd;
-    private RelativeLayout countryRel;
+    private Button signUpBtn;
+    private TextView signInTextView;
     private final MainClass mainClass = new MainClass(this);
+    private FirebaseAuth mAuth;
 
-    private ArrayList<StateClass> countryArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        txtNum = findViewById(R.id.txtNum);
-        txtPhNumber = findViewById(R.id.txtPhNumber);
-        txtCountry = findViewById(R.id.txtCountry);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtPassword = findViewById(R.id.txtPassword);
 
-        countryRel = findViewById(R.id.countryRel);
+        passwordInputLayout = findViewById(R.id.passwordInputLayout);
+        emailInputLayout = findViewById(R.id.emailInputLayout);
 
-        requestQueue = Volley.newRequestQueue(this);
+        signUpBtn = findViewById(R.id.btnSubmit);
 
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<String>(this, R.layout.list_item, getResources().getStringArray(R.array.tel_codes));
+        signInTextView = findViewById(R.id.signInTextView);
 
-        txtNum.setAdapter(genderAdapter);
-        txtNum.setDropDownBackgroundDrawable(getDrawable(R.drawable.search_bg2));
+        progressBar = findViewById(R.id.progressBar);
 
-        txtPhNumber.addTextChangedListener(new PhoneTextWatcher(txtPhNumber)
-        {
+        PulseRing pulseRing = new PulseRing();
+        pulseRing.setColor(getResources().getColor(R.color.dark_red_4d));
+        progressBar.setIndeterminateDrawable(pulseRing);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        txtEmail.addTextChangedListener(new ValidationTextWatcher(txtEmail));
+        txtPassword.addTextChangedListener(new ValidationTextWatcher(txtPassword));
+
+        signInTextView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable s)
-            {
-                super.afterTextChanged(s);
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
             }
         });
 
-        countryRel.setOnClickListener(view -> showCountry());
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                if (!validateEmail() || !validatePassword()) {
+                    return;
+                }
 
+                progressBar.setVisibility(View.VISIBLE);
+                String email = txtEmail.getText().toString().trim();
+                String password = txtPassword.getText().toString().trim();
+                signUpBtn.setClickable(false);
+                signUp(email, password, view);
+            }
+        });
+    }
+
+    public boolean validateEmail() {
+        if (txtEmail.getText().toString().trim().isEmpty()) {
+            emailInputLayout.setError("Email Required");
+            return false;
+        } else {
+            String emailId = txtEmail.getText().toString().trim();
+            Boolean isValid = Patterns.EMAIL_ADDRESS.matcher(emailId).matches();
+
+            if (!isValid) {
+                emailInputLayout.setError("Invalid Email Address");
+                return false;
+            } else{
+                emailInputLayout.setErrorEnabled(false);
+            }
+
+        }
+
+        return true;
+    }
+
+    public boolean validatePassword() {
+        if (txtPassword.getText().toString().trim().isEmpty()) {
+            passwordInputLayout.setError("Password Required");
+            return false;
+
+        } else if (txtPassword.getText().toString().trim().length() < 6) {
+            passwordInputLayout.setError("Password must be at least 6 characters");
+            return false;
+
+        } else {
+            passwordInputLayout.setErrorEnabled(false);
+        }
+
+        return true;
     }
 
 
+    public void signUp(String email, String password, View v) {
+        Log.d("User details", "email: " + email + "\n" +
+                "password: " + password);
 
-    public void showCountry(){
-    WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-    Display display = wm.getDefaultDisplay();
-    DisplayMetrics metrics = new DisplayMetrics();
-        display.getMetrics(metrics);
-    int height = metrics.heightPixels / 4;
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(), SignupCompleteActivity.class);
+                            intent.putExtra("USER_ID", user.getUid());
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            mainClass.showError("Authentication failed", v);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        signUpBtn.setClickable(true);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-    bsd = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
-    @SuppressLint("InflateParams")
-    View view = getLayoutInflater().inflate(R.layout.bottom_sheet_list, null);
-    bsd.setContentView(view);
-    BottomSheetBehavior<View> bottomSheetBehavior = BottomSheetBehavior.from((View) view.getParent());
-    bottomSheetBehavior.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, getResources().getDisplayMetrics()));
-    bottomSheetBehavior.setDraggable(false);
-    bsd.show();
-
-     listView = view.findViewById(R.id.listView);
-     RelativeLayout searchBar = view.findViewById(R.id.searchBar);
-    TextView txt = view.findViewById(R.id.bottomSheetName);
-    progressBar = view.findViewById(R.id.progressBar);
-
-    txt.setText(getResources().getString(R.string.select_country));
-    searchBar.setVisibility(View.VISIBLE);
-    progressBar.setVisibility(View.VISIBLE);
-    getCountry();
-
-}
-
-public void getCountry(){
-    countryArrayList = new ArrayList<>();
-
-    String urlCountry = "https://countriesnow.space/api/v0.1/countries/flag/images";
-
-    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCountry,
-            null,
-            response -> {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    for (int k = 0; k < jsonArray.length(); k++) {
-                        JSONObject jsonObject1 = jsonArray.optJSONObject(k);
-                        String name = jsonObject1.optString("name", "Processing");
-                        String flag = jsonObject1.optString("flag", "Processing");
-
-
-                        StateClass stateClass = new StateClass();
-                        stateClass.setName(name);
-                        stateClass.setUrl(flag);
-                        countryArrayList.add(stateClass);
-
-                        ListAdapter adapter = new ListAdapter(this, countryArrayList);
-                        listView.setAdapter(adapter);
-                        listView.setOnItemClickListener((parent, view1, position, id) -> {
-                            StateClass state;
-                            state = countryArrayList.get(position);
-                            txtCountry.setText(state.getName());
-                            bsd.dismiss();
-                        });
+                        if (e instanceof FirebaseAuthUserCollisionException) {
+                            mainClass.showError("Email already in use ", v);
+                        } else if (e instanceof FirebaseAuthWeakPasswordException) {
+                            String errorCode = ((FirebaseAuthWeakPasswordException) e).getReason();
+                            mainClass.showError(errorCode, v);
+                        } else {
+                            mainClass.showError(e.getLocalizedMessage(), v);
+                        }
                         progressBar.setVisibility(View.GONE);
 
                     }
-                } catch (JSONException e) {
-                    Toast.makeText(this, ""+getString(R.string.unknown_err), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
-                    bsd.dismiss();
-                }
-            },error -> {
-        if(error.networkResponse == null){
-            Toast.makeText(getApplicationContext(), ""+getString(R.string.network_err), Toast.LENGTH_SHORT).show();
-        } else {
-            String error1 = mainClass.getError(error.networkResponse.data);
-            Toast.makeText(getApplicationContext(), ""+error1, Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            //reload();
         }
-        progressBar.setVisibility(View.GONE);
-        bsd.dismiss();
-    });
-    requestQueue.add(request);
-}
+    }
+    
 
-    public class PhoneTextWatcher implements TextWatcher
-    {
-        private EditText editText;
 
-        public PhoneTextWatcher(EditText editText)
-        {
-            this.editText = editText;
+    private class ValidationTextWatcher implements TextWatcher {
+        private View view;
+
+        private ValidationTextWatcher(View view) {
+            this.view = view;
         }
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after)
-        {
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count)
-        {
-
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         }
 
-        @Override
-        public void afterTextChanged(Editable s)
-        {
-            StringBuffer sb = new StringBuffer(s);
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.txtEmail:
+                    validateEmail();
+                    break;
 
-            if (s.length() >= 3)
-            {
-                char[] chars = s.toString().toCharArray();
-                if (chars[2] != ' ')
-                {
-                    sb.insert(2,' ');
-                    setContent(sb);
-                }
+                case R.id.txtPassword:
+                    validatePassword();
+                    break;
+
             }
-
-            if (s.length() >= 7)
-            {
-                char[] chars = s.toString().toCharArray();
-                if (chars[6] != ' ')
-                {
-                    sb.insert(6,' ');
-                    setContent(sb);
-                }
-            }
-
         }
 
-         private void setContent(StringBuffer sb)
-        {
-            editText.setText(sb.toString());
-            editText.setSelection(sb.length());
-        }
     }
 }

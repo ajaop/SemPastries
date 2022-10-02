@@ -40,6 +40,12 @@ public class ListAdapter extends ArrayAdapter<StateClass>  {
         }
         return ret;
     }
+
+    public void filterList(ArrayList<StateClass> filterlist) {
+        stateClasses = filterlist;
+        notifyDataSetChanged();
+    }
+
     @Override
     public StateClass getItem(int itemIndex) {
         StateClass ret = null;

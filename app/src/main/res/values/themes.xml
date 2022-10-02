@@ -41,6 +41,7 @@
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintEnabled">false</item>
+        <item name="errorEnabled">true</item>
         <item name="android:textColorHint">@color/gray_31</item>
         <item name="boxStrokeColor">@color/text_input_border</item>
         <item name="errorTextColor">@color/red_3</item>
