@@ -25,4 +25,7 @@ public interface PlaceHolder {
     Call<ResponseBody> getState(
             @Part("subPropertyId") RequestBody PropertyId);
 
+    @GET("our-foods")
+    Call<ResponseBody> getPastry();
+
 }

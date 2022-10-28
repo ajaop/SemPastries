@@ -175,7 +175,7 @@ public class SignupActivity extends AppCompatActivity {
             //reload();
         }
     }
-    
+
 
 
     private class ValidationTextWatcher implements TextWatcher {
